@@ -12,17 +12,24 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
         setPlayer(e.target.value);   
     }
 
+    const handleRound =()=>{
+        let arr =["papper","scissors","rock"];
+        let rand =Math.floor(Math.random()*arr.length);
+        console.log(arr[rand]);
+        setPcPlay(arr[rand])
+    }
 
 
     return (
         <>
-            <h2>{player}</h2>
             <h2>{pcPlay}</h2>
+            <h2>{player}</h2>
             <div>
                 <button value={"papper"} onClick={(e)=>handlePlayerChoice(e)}>paper</button>
                 <button value={"scissors"} onClick={(e)=>handlePlayerChoice(e)}>scissors</button>
                 <button value={"rock"} onClick={(e)=>handlePlayerChoice(e)}>rock</button>
             </div>
+            <button onClick={()=>handleRound()}>round</button>
         </>
     );
 }
