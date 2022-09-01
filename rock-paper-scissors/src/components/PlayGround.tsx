@@ -8,7 +8,9 @@ type PlayGroundProps = {
 export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
     const[player,setPlayer]= useState<string>("");
     const[pcPlay,setPcPlay]=useState<string>("");
-    let[num,setnum]= useState<number>(0)
+    const[active,setActive]= useState<boolean>(false);
+    const[win,setWin]= useState<string>("draw");
+    
 
     const handlePlayerChoice = (e: any)=>{
         setPlayer(e.target.value);   
@@ -17,39 +19,53 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
     
     const handleRound = ()=>{
         let arr =["papper","scissors","rock"];
-
-           if(num===0){
-            let roll = setInterval(()=>{
-                let rand =Math.floor(Math.random()*arr.length);
-                setPcPlay(arr[rand])
-                // // console.log(active);
-                // console.log("radi");
-                setnum(num++)
-
+        let rand =Math.floor(Math.random()*arr.length);
+        setPcPlay(arr[rand]);
+        setActive(true);
+        
+        let num:number =0;
+        let roll = setInterval(()=>{
+            num++;
+        
+            if(num>3){
+                clearInterval(roll);
+                num=0;
+                setActive(false)
                 
-                if(num>4){
-                    clearInterval(roll);
-                    // console.log("stani");
-                    setnum(0);
+                if(player==="papper" && pcPlay==="rock"){
+                    setWin("win");
+                    console.log("1");  
+                }
+        
+                if(player==="scissors" && pcPlay==="papper"){
+                    setWin("win");
+                    console.log("2");
                 }
                 
-            },1000) 
-           }
-       
+                if(player==="rock" && pcPlay==="scissors"){
+                    setWin("win");
+                    console.log("3");
+                }
+        
+               
+            }
+        },1000) 
     }
 
+console.log(pcPlay);
 
-    
-console.log(num);
+
 
     
 
 
     return (
         <>
-        {num}
-            <h2>{pcPlay}</h2>
+        {active?<h2>zzzzzzzzzzzzzzzz</h2>:<h2>{pcPlay}</h2>}
+            
             <h2>{player}</h2>
+
+            <h1>{win==="win" ? "win":"lost"}</h1>
             <div>
                 <button value={"papper"} onClick={(e)=>handlePlayerChoice(e)}>paper</button>
                 <button value={"scissors"} onClick={(e)=>handlePlayerChoice(e)}>scissors</button>
