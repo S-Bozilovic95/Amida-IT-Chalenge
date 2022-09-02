@@ -8,7 +8,7 @@ type PlayGroundProps = {
 export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
     const[player,setPlayer]= useState<string>("");
     const[pcPlay,setPcPlay]=useState<string>("");
-    const[active,setActive]= useState<boolean>(false);
+    const[active,setActive]= useState<boolean>(true);
     const[win,setWin]= useState<string>("draw");
     
 
@@ -17,11 +17,11 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
         let rand =Math.floor(Math.random()*arr.length);
         setPcPlay(arr[rand]);
         setPlayer(e.target.value);   
+        setActive(true);
     }
 
     
     const handleRound = async ()=>{
-        setActive(true);
 
         await setTimeout(()=>{
             setActive(false);
@@ -42,7 +42,7 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
             }
     
             if(player === pcPlay){
-                setWin("draw")
+                setWin("draw");
                 console.log(player, 4);
             }
     
@@ -62,14 +62,6 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
             }   
         },3000)
     }
-
-    
-
-    
-
-
-
-    
 
 
     return (
