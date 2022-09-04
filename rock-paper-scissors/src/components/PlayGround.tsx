@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { getEnvironmentData } from 'worker_threads';
+import { Choice } from './Choice';
+import { Display } from './Display';
 
 
 type PlayGroundProps = {
-    
+
 }
 
 export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
     const[player,setPlayer]= useState<string>("");
     const[pcPlay,setPcPlay]=useState<string>("");
-    const[active,setActive]= useState<boolean>(true);
+    const[active,setActive]= useState<boolean>(false);
     const[win,setWin]= useState<string>("draw");
     const[block,setBlock]= useState<boolean>(true);
    
@@ -66,18 +68,11 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
 
 
     return (
-        <>
-        {active?<h2>zzzzzzzzzzzzzzzz</h2>:<h2>{pcPlay}</h2>}
-            
-            <h2>{player}</h2>
-            <h3>{active? null:win}</h3>
-            <div>
-                <button value={"papper"} onClick={(e)=>handlePlayerChoice(e)}>paper</button>
-                <button value={"scissors"} onClick={(e)=>handlePlayerChoice(e)}>scissors</button>
-                <button value={"rock"} onClick={(e)=>handlePlayerChoice(e)}>rock</button>
-            </div>
-            <button disabled={block?true:false} onClick={()=>handleRound()}>start round</button>
-            {block?<h3>select any option</h3>: <h3>click start round when you are ready</h3>}
-        </>
+        <section className='playground'>
+            <Display active={active} win={win} player={player} pcPlay={pcPlay} />
+            <Choice active={active} handlePlayerChoice={handlePlayerChoice}/>
+            <button className='playground__startRound' disabled={block?true:false} onClick={()=>handleRound()}>start round</button>
+            <h3 className='playground__instructions'>{block?"select any option":"click start round when you are ready"}</h3>
+        </section>
     );
 }
