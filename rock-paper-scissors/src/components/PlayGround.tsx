@@ -29,10 +29,6 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
 
     
     const handleRound = ()=>{
-        setActive(true);
-        console.log(player, "svetozar");
-        console.log(pcPlay);
-
 
         setTimeout(()=>{
             setActive(false);
@@ -74,13 +70,14 @@ export const PlayGround: React.FC<PlayGroundProps> = ({}) => {
         {active?<h2>zzzzzzzzzzzzzzzz</h2>:<h2>{pcPlay}</h2>}
             
             <h2>{player}</h2>
-            <h3>{win}</h3>
+            <h3>{active? null:win}</h3>
             <div>
                 <button value={"papper"} onClick={(e)=>handlePlayerChoice(e)}>paper</button>
                 <button value={"scissors"} onClick={(e)=>handlePlayerChoice(e)}>scissors</button>
                 <button value={"rock"} onClick={(e)=>handlePlayerChoice(e)}>rock</button>
             </div>
             <button disabled={block?true:false} onClick={()=>handleRound()}>start round</button>
+            {block?<h3>select any option</h3>: <h3>click start round when you are ready</h3>}
         </>
     );
 }
